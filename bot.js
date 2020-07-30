@@ -8,7 +8,7 @@ const fetchVideoInfo = require('youtube-info');
 
 const YouTube = require('simple-youtube-api');
 
-const youtube = new YouTube("AIzaSyBWPTW63Xb-IUtbjh2DURpOXKMXA1vwBzw");
+const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 
 const queue = new Map();
 
@@ -20,7 +20,7 @@ const gif = require("gif-search");
 
 const client = new Discord.Client({disableEveryone: true});
 
-const prefix = "3";
+const prefix = "!";
 /////////////////////////
 ////////////////////////
 
@@ -312,54 +312,44 @@ function play(guild, song) {
 }
 
 
-client.on("message", message => {
-  var helplist = `**:notes:  commands ** 
-
-\`Play\` : to play a song 
-\`Pause\` : temporary pause the song  
-\`Resume\` : resume the paused song 
-\`stop\` : to disconnect
-\`forceskip\` : to skip all the queue
-\`Queue\` : to view the queue
-\`skipto\` : to skip to any song in the queue
-\`Skip\` : to skip the current song
-\`Volume\` : to change the volume 
-\`Nowplaying\` : to view what's playing right now
-\`repeat\` : to repeat the song 
-\`Leave\` : to leave the vc 
-
-f (message.content === prefix + "help") {
-    message.delete(1000);
-    let e = "`help list sent in dms`";
-    message.reply(e).then(m => m.delete(10000));
-    message.author
-      .send(helplist)
-      .catch(error =>
-        message.reply(
-          "** i couldnt send you messages make sure your dms arent closed :negative_squared_cross_mark:**"
-        )
-      );
-  }
+client.on('message', message => {
+    if (message.content === 'help') {
+        let helpEmbed = new Discord.RichEmbed()
+        .setTitle('**أوامر الميوزك...**')
+        .setDescription('**برفكس البوت (!)**')
+        .addField('play', 'لتشغيل اغنية')
+        .addField('join', 'دخول رومك الصوتي')
+        .addField('disconnect', 'الخروج من رومك الصوتي')
+        .addField('skip', 'تخطي الأغنية')
+        .addField('pause', 'ايقاف الاغنية مؤقتا')
+        .addField('resume', 'تكملة الاغنية')
+        .addField('queue', 'اظهار قائمة التشغيل')
+        .addField('np', 'اظهار الاغنية اللي انت مشغلها حاليا')
+        .setFooter('(general_commands) لاظهار الاوامر العامة')
+      message.channel.send(helpEmbed);
+    }
 });
 
-client.on("message", message => {
-  if (!developers.includes(message.author.id)) return;
-  var helplist = `
- 
-**:gear: Owner commands
-
-\`setStreaming\` : 
-\`setWatching\` : 
-\`setListening\` : 
-\`setName\` :  
-\`setAvatar\` : 
-\`setStatus\` :**
-made by <@561291046349176833>
-`;
-  if (message.content === prefix + "help") {
-    message.author.send(helplist);
-  }
+client.on('message', message => {
+    if (message.content === 'general_commands') {
+        let helpEmbed = new Discord.RichEmbed()
+        .setTitle('**General commands...**')
+        .addField('avatar', "اTo get someone's avatar")
+        .addField('ping', "To know the bots ping")
+        .setFooter('3nomi bot')
+      message.channel.send(helpEmbed);
+    }
 });
+
+client.on('message', msg => {
+  if (msg.content === '3help') {
+    msg.reply('Pong!\
+
+
+1
+
+
+
+              ');
 
 client.login(process.env.BOT_TOKEN);
-
