@@ -309,7 +309,7 @@ function play(guild, song) {
 	dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
 
 	serverQueue.textChannel.send(`**${song.title}**, is now playing!`);
-  }
+  
 });
 
 client.login(process.env.BOT_TOKEN);
